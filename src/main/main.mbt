@@ -31,7 +31,58 @@ fn App::view(
   @respo_node.div(
     class_name=@respo.ui_global,
     style=@respo_node.RespoStyle::new(padding=Px(12)),
-    [comp_counter(states.pick("counter"), store.counted)],
+    [
+      @respo_node.div(
+        style=@respo_node.RespoStyle::new(
+          display=Flex,
+          flex_direction=Column,
+          max_width=Px(1200),
+          padding=Px(40),
+          margin=Auto,
+        ),
+        [
+          @respo_node.div(
+            [
+              @respo_node.img(
+                src="https://cos-sh.tiye.me/cos-up/bb4c2755050318e864b56f59145d726e-SubstractRespo.png",
+                alt="Respo",
+              ),
+            ],
+          ),
+          @respo_node.div(
+            [
+              @respo_node.span(
+                inner_text="This is an intro page for Respo on MoonBit. ",
+                [],
+              ),
+              @respo_node.a(
+                href="https://mooncakes.io/docs/#/tiye/respo/",
+                inner_text="Find more on Respo docs.",
+                target=Blank,
+              ),
+            ],
+          ),
+          @respo_node.div(
+            [
+              @respo_node.div(
+                [
+                  @respo_node.span(
+                    inner_text="Here a demo describing JSX-like syntax in MoonBit:",
+                    [],
+                  ),
+                ],
+              ),
+              @respo_node.pre(
+                class_name=@respo_node.str_spaced(
+                  [@respo.ui_font_code, style_code_block],
+                ),
+                inner_text=dom_demo,
+              ),
+            ],
+          ),
+        ],
+      ),
+    ],
   )
 }
 
@@ -115,3 +166,32 @@ fn App::render_loop(self : App) -> Unit {
     Err(e) => @dom_ffi.error_log(e.to_string())
   }
 }
+
+let dom_demo =
+  #|@respo_node.div(
+  #|  [
+  #|    @respo_node.span(
+  #|      inner_text="This is an intro page for Respo on MoonBit. ",
+  #|      [],
+  #|    ),
+  #|    @respo_node.a(
+  #|      href="https://mooncakes.io/docs/#/tiye/respo/",
+  #|      inner_text="Find more on Respo docs.",
+  #|      target=Blank,
+  #|    ),
+  #|  ],
+  #|),
+
+let style_code_block : String = @respo_node.declare_static_style(
+  [
+    (
+      "&",
+      @respo_node.RespoStyle::new(
+        padding=Px(12),
+        background_color=Hsl(0, 0, 95),
+        line_height=Em(1.6),
+      ),
+    ),
+    ("pre&", @respo_node.RespoStyle::new(margin=Px(0))),
+  ],
+)
