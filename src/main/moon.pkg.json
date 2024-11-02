@@ -2,7 +2,22 @@
   "is-main": true,
   "import": [
     { "path": "tiye/respo/lib", "alias": "respo" },
-    { "path": "tiye/respo/lib/node", "alias": "respo_node" },
+    {
+      "path": "tiye/respo/lib/node",
+      "alias": "respo_node",
+      "value": [
+        "div",
+        "span",
+        "respo_style",
+        "respo_attrs",
+        "declare_static_style",
+        "pre",
+        "a",
+        "span",
+        "img",
+        "str_spaced"
+      ]
+    },
     { "path": "tiye/dom-ffi/lib", "alias": "dom_ffi" }
   ]
 }
