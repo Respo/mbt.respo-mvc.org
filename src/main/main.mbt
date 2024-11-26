@@ -8,60 +8,7 @@ fn view(
   }
   // @dom_ffi.log("Store to render: " + store.to_json().stringify(indent=2))
   let _states = store.get_states()
-  div(
-    class_name=@respo.ui_global,
-    style=respo_style(padding=Px(12)),
-    [
-      div(
-        style=respo_style(
-          display=Flex,
-          flex_direction=Column,
-          max_width=Px(1200),
-          padding=Px(40),
-          margin=Auto,
-        ),
-        [
-          div(
-            [
-              img(
-                src="https://cos-sh.tiye.me/cos-up/bb4c2755050318e864b56f59145d726e-SubstractRespo.png",
-                alt="Respo",
-              ),
-            ],
-          ),
-          div(
-            [
-              span(
-                inner_text="This is an intro page for Respo on MoonBit. ",
-                [],
-              ),
-              a(
-                href="https://mooncakes.io/docs/#/tiye/respo/",
-                inner_text="Find more on Respo docs.",
-                target=Blank,
-              ),
-            ],
-          ),
-          div(
-            [
-              div(
-                [
-                  span(
-                    inner_text="Here a demo describing JSX-like syntax in MoonBit:",
-                    [],
-                  ),
-                ],
-              ),
-              pre(
-                class_name=str_spaced([@respo.ui_font_code, style_code_block]),
-                inner_text=dom_demo,
-              ),
-            ],
-          ),
-        ],
-      ),
-    ],
-  )
+  comp_container()
 }
 
 fn main {
@@ -84,37 +31,8 @@ fn main {
       app.store.val.update(op)
     },
   )
-  let dev_mode = @dom_ffi.get_url_search_params(
-    window.get_location().get_search(),
-  ).get("mode")
+  let dev_mode = @dom_ffi.new_url_search_params(window.location().search()).get(
+    "mode",
+  )
   @dom_ffi.log("dev mode: " + dev_mode.to_string())
 }
-
-let dom_demo =
-  #|div(
-  #|  [
-  #|    span(
-  #|      inner_text="This is an intro page for Respo on MoonBit. ",
-  #|      [],
-  #|    ),
-  #|    a(
-  #|      href="https://mooncakes.io/docs/#/tiye/respo/",
-  #|      inner_text="Find more on Respo docs.",
-  #|      target=Blank,
-  #|    ),
-  #|  ],
-  #|),
-
-let style_code_block : String = declare_static_style(
-  [
-    (
-      "&",
-      respo_style(
-        padding=Px(12),
-        background_color=Hsl(0, 0, 95),
-        line_height=Em(1.6),
-      ),
-    ),
-    ("pre&", respo_style(margin=Px(0))),
-  ],
-)
