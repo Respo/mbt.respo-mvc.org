@@ -12,6 +12,7 @@ fn comp_container[T]() -> @respo_node.RespoNode[T] {
           max_width=Px(1200),
           padding=Px(40),
           margin=Auto,
+          gap=Px(20),
         ),
         [
           div(
@@ -49,40 +50,42 @@ fn comp_container[T]() -> @respo_node.RespoNode[T] {
               ),
             ],
           ),
-          @respo_node.space(height=20),
           comp_paired(
             text_node(
               "Create elements in Calcit indentation syntax with `@respo_node.div`",
             ),
             code_block(snippet_div),
           ),
-          @respo_node.space(height=20),
           comp_paired(
             text_node("Add nested elemets"),
             code_block(snippet_nested),
           ),
-          @respo_node.space(height=20),
           comp_paired(
             text_node("Add text nodes with `@respo_node.text_node`"),
             code_block(snippet_text_node),
           ),
-          @respo_node.space(height=20),
           comp_paired(
             text_node("CSS in MoonBit with `@respo.declare_static_style`"),
             code_block(snippet_css),
           ),
-          @respo_node.space(height=20),
           div([text_node(class_name=style_section_title, "Create Components")]),
-          @respo_node.space(height=20),
           comp_paired(
             text_node("To defined component, try plain function"),
             code_block(snippet_component),
           ),
-          @respo_node.space(height=20),
+          div([text_node(class_name=style_section_title, "Adding Effects")]),
           comp_paired(
-            text_node("To defined component with effects"),
+            text_node(
+              "Define effects according to `RespoEffect` trait. Data is accessible in `self`",
+            ),
+            code_block(snippet_effect_def),
+          ),
+          comp_paired(
+            text_node("Define component with effects"),
             code_block(snippet_component_effects),
           ),
+          div([text_node(class_name=style_section_title, "States Management")]),
+          @respo_node.space(height=200),
         ],
       ),
     ],
@@ -95,6 +98,7 @@ fn comp_paired[T](
 ) -> @respo_node.RespoNode[T] {
   div(
     class_name=@respo.ui_row,
+    style=respo_style(gap=Px(20)),
     [
       div(class_name=str_spaced([@respo.ui_expand]), [left]),
       div(class_name=str_spaced([@respo.ui_expand]), [right]),

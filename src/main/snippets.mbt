@@ -30,10 +30,23 @@ let snippet_component =
   #| }
   #| comp_demo("a", "b")
 
-let snippet_component_effects =
-  #| fn comp_demo[T](p1 : String, p2 : String) -> @respo_node.RespoNode[T] {
-  #|   div([text_node(p1), text_node(p2)])
-  #|   // TODO
+let snippet_effect_def =
+  #| type DemoData Unit derive(Default, Eq, ToJson, @json.FromJson)
+  #|
+  #| impl @respo_node.RespoEffect for DemoData with before_update(self, _el) {
+  #|   @dom_ffi.log("before update" + self._.to_string())
   #| }
   #|
-  #| comp_demo("a", "b")
+  #| impl @respo_node.RespoEffect for DemoData with updated(_self, _el) {
+  #|   @dom_ffi.log("updated")
+  #| }
+
+let snippet_component_effects =
+  #| @node.RespoComponent::named(
+  #|     "demo",
+  #|     effects=[
+  #|       effect_focus_data as @node.RespoEffect,
+  #|       effect_modal_fade_data as @node.RespoEffect,
+  #|     ],
+  #|     div([])
+  #| )
