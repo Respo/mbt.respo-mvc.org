@@ -1,3 +1,4 @@
+///|
 let snippet_div =
   #| div(
   #|   class_name="demo",
@@ -10,12 +11,15 @@ let snippet_div =
   #|   [],
   #| )
 
+///|
 let snippet_nested =
   #| div([span([]), div([])])
 
+///|
 let snippet_text_node =
   #| text_node("demo", class_name="demo")
 
+///|
 let snippet_css =
   #| let style_hover = declare_static_style(
   #|   [
@@ -24,12 +28,14 @@ let snippet_css =
   #|   ],
   #| )
 
+///|
 let snippet_component =
   #| fn comp_demo[T](p1 : String, p2 : String) -> @respo_node.RespoNode[T] {
   #|   div([text_node(p1), text_node(p2)])
   #| }
   #| comp_demo("a", "b")
 
+///|
 let snippet_effect_def =
   #| type DemoData Unit derive(Default, Eq, ToJson, @json.FromJson)
   #|
@@ -41,6 +47,7 @@ let snippet_effect_def =
   #|   @dom_ffi.log("updated")
   #| }
 
+///|
 let snippet_component_effects =
   #| @node.RespoComponent::named(
   #|     "demo",
