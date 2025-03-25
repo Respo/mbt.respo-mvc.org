@@ -57,3 +57,18 @@ let snippet_component_effects =
   #|     ],
   #|     div([])
   #| )
+
+///|
+let snippet_global_store =
+  #| struct Store {
+  #|   states : @respo.RespoStatesTree
+  #| } derive(ToJson, @json.FromJson)
+
+///|
+let snippet_update_store =
+  #| fn update(self : Store, op : ActionOp) -> Unit {
+  #|   match op {
+  #|     StatesChange(states) => self.states.set_in_mut(states)
+  #|     _ => ()
+  #|   }
+  #| }

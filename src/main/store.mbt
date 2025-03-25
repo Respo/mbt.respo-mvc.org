@@ -4,7 +4,7 @@ struct Store {
 } derive(ToJson, @json.FromJson)
 
 ///|
-fn Store::default() -> Store {
+impl Default for Store with default() -> Store {
   { states: @respo.RespoStatesTree::default() }
 }
 

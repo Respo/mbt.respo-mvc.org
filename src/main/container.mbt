@@ -77,6 +77,34 @@ fn comp_container[T]() -> @respo_node.RespoNode[T] {
             code_block(snippet_component_effects),
           ),
           div([text_node(class_name=style_section_title, "States Management")]),
+          comp_paired(
+            text_node(
+              "Respo uses an Atom to maintain global states. Global states and \"Single Source of Truth\" are preferred",
+            ),
+            code_block(snippet_global_store),
+          ),
+          comp_paired(
+            text_node("To update store"),
+            code_block(snippet_update_store),
+          ),
+          div([
+            text_node("More details in the "),
+            a(
+              inner_text="Workflow",
+              href="https://github.com/Respo/respo-moonbit-workflow",
+              target=Blank,
+            ),
+            text_node(" repository"),
+          ]),
+          div([
+            text_node("Major implementation for Respo is "),
+            a(
+              inner_text="Respo Calcit",
+              href="https://respo-mvc.org/",
+              target=Blank,
+            ),
+            text_node("."),
+          ]),
           @respo_node.space(height=200),
         ],
       ),
