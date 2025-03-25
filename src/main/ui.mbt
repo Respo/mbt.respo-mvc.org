@@ -19,7 +19,7 @@ fn code_block[T](
 ///|
 fn str_some_spaced(arr : Array[String?]) -> String {
   arr.filter(fn(x) { not(x.is_empty()) }).map(fn(x) { x.unwrap() })
-  |> String::concat(separator=" ")
+  |> @string.concat(separator=" ")
 }
 
 ///|
