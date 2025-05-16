@@ -1,5 +1,5 @@
 ///|
-let app_store_key : String = "mbt-workflow"
+let app_store_key : String = "respo-mbt-home"
 
 ///|
 fn view(

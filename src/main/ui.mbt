@@ -27,11 +27,15 @@ let style_code_block : String = declare_static_style([
   (
     "&",
     respo_style(
-      padding=Px(8),
-      // background_color=Hsl(0, 0, 95),
-      border=(1.0, Solid, Hsl(0, 0, 90)),
+      padding=8 |> Px,
+      border=(
+        // background_color=Hsl(0, 0, 95),
+        1.0,
+        Solid,
+        Hsl(0, 0, 90),
+      ),
       border_radius=4,
-      line_height=Em(1.6),
+      line_height=1.6 |> Em,
       font_size=13,
     ),
   ),

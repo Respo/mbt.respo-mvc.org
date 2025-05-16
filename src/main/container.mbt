@@ -1,18 +1,35 @@
+///|
+fnalias @respo_node.(
+  div,
+  respo_style,
+  str_spaced,
+  text_node,
+  a,
+  img,
+  pre,
+  declare_static_style,
+  button,
+  space
+)
+
+///|
+typealias @respo_node.RespoNode
+
 ///| container of page
-fn comp_container[T]() -> @respo_node.RespoNode[T] {
+fn comp_container[T]() -> RespoNode[T] {
   div(
     class_name=str_spaced([@respo.ui_global, @respo.ui_fullscreen]),
-    style=respo_style(padding=Px(12)),
+    style=respo_style(padding=12 |> Px),
     [
       div(
         class_name=@respo.ui_column,
         style=respo_style(
           display=Flex,
           flex_direction=Column,
-          max_width=Px(1200),
-          padding=Px(40),
+          max_width=1200 |> Px,
+          padding=40 |> Px,
           margin=Auto,
-          gap=Px(20),
+          gap=20 |> Px,
         ),
         [
           div(class_name=str_spaced([@respo.ui_row_center, style_gap]), [
@@ -29,12 +46,12 @@ fn comp_container[T]() -> @respo_node.RespoNode[T] {
               ),
               text_node("Virtual DOM library on MoonBit."),
               div([
-                @respo_node.button(
+                button(
                   class_name=@respo.ui_button_primary,
                   inner_text="Guidebook",
                 ),
-                @respo_node.space(width=16),
-                @respo_node.a(
+                space(width=16),
+                a(
                   inner_text="API Docs",
                   target=Blank,
                   href="https://mooncakes.io/docs/#/tiye/respo/",
@@ -105,7 +122,7 @@ fn comp_container[T]() -> @respo_node.RespoNode[T] {
             ),
             text_node("."),
           ]),
-          @respo_node.space(height=200),
+          space(height=200),
         ],
       ),
     ],
@@ -113,18 +130,15 @@ fn comp_container[T]() -> @respo_node.RespoNode[T] {
 }
 
 ///|
-fn comp_paired[T](
-  left : @respo_node.RespoNode[T],
-  right : @respo_node.RespoNode[T]
-) -> @respo_node.RespoNode[T] {
+fn comp_paired[T](left : RespoNode[T], right : RespoNode[T]) -> RespoNode[T] {
   div(class_name=@respo.ui_row, style=respo_style(gap=Px(20)), [
-    div(class_name=str_spaced([@respo.ui_expand]), [left]),
-    div(class_name=str_spaced([@respo.ui_expand]), [right]),
+    div(class_name=@respo.ui_expand, [left]),
+    div(class_name=@respo.ui_expand, [right]),
   ])
 }
 
 ///|
-let style_gap : String = declare_static_style([("&", respo_style(gap=Px(12)))])
+let style_gap : String = declare_static_style([("&", respo_style(gap=12 |> Px))])
 
 ///|
 let style_section_title : String = declare_static_style([
