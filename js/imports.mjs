@@ -6,17 +6,21 @@ import mbt from "./moonbit.tmLanguage.json";
 
 let theme = "one-light";
 
-const highlighter = await createHighlighter({
-  themes: [theme],
-  langs: [mbt],
-});
-
-window.moonbit_code_to_html = (code, lang) => {
-  return highlighter.codeToHtml(code, {
-    lang: lang || "moonbit",
-    theme: theme,
+let main = async () => {
+  const highlighter = await createHighlighter({
+    themes: [theme],
+    langs: [mbt],
   });
-};
-console.log("injected moonbit_code_to_html");
 
-window.onImportsLoaded();
+  window.moonbit_code_to_html = (code, lang) => {
+    return highlighter.codeToHtml(code, {
+      lang: lang || "moonbit",
+      theme: theme,
+    });
+  };
+  console.log("injected moonbit_code_to_html");
+
+  window.onImportsLoaded();
+};
+
+main();
