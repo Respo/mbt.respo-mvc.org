@@ -14,7 +14,7 @@ fn view(
 }
 
 ///|
-fn main {
+fn start_app() -> Unit {
   let window = @dom_ffi.window()
   let mount_target = window
     .document()
@@ -35,4 +35,13 @@ fn main {
     "mode",
   )
   @dom_ffi.log("dev mode: " + dev_mode.to_string())
+}
+
+///| waits for imports to be loaded
+extern "js" fn hook_onload(f : () -> Unit) -> Unit =
+  #| (f) => window.onImportsLoaded=f
+
+///|
+fn main {
+  hook_onload(fn() { start_app() })
 }

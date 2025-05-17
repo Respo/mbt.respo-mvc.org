@@ -22,7 +22,7 @@ fn comp_container[T]() -> RespoNode[T] {
     style=respo_style(padding=12 |> Px),
     [
       div(
-        class_name=@respo.ui_column,
+        class_list=["markdown-body", @respo.ui_column],
         style=respo_style(
           display=Flex,
           flex_direction=Column,

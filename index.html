@@ -3,6 +3,7 @@
   <head>
     <title>Respo Moonbit</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.tiye.me/favored-fonts/main-fonts.css">
+    <script type="module" src="./js/imports.mjs"></script>
 
     <style>
       body {
@@ -13,14 +14,15 @@
         box-sizing: border-box;
       }
     </style>
+
+    <script
+      src="./target/js/release/build/main/main.js"
+      type="module"
+    ></script>
   </head>
   <body>
     <!-- <script src="./main.mjs" type="module"></script> -->
     <div class="app"></div>
-    <script
-      src="./target/js/debug/build/main/main.js"
-      type="module"
-      defer
-    ></script>
+
   </body>
 </html>
