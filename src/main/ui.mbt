@@ -35,6 +35,7 @@ let style_code_block : String = declare_static_style([
       border_radius=4,
       line_height=1.6 |> Em,
       font_size=13,
+      background_color=RawString("#FAFAFA"),
     ),
   ),
   ("pre&", respo_style(margin=Px(0))),

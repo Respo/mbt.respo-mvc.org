@@ -2,10 +2,10 @@
   "name": "tiye/respo-workflow",
   "version": "0.1.0",
   "deps": {
-    // "tiye/respo": "0.0.29",
-    "tiye/respo": {
-      "path": "/Users/chenyong/repo/respo/respo.mbt"
-    },
+    "tiye/respo": "0.0.30",
+    // "tiye/respo": {
+    //   "path": "/Users/chenyong/repo/respo/respo.mbt"
+    // },
     "tiye/dom-ffi": "0.0.9"
   },
   "readme": "README.md",

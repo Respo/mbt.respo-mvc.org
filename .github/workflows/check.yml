@@ -32,7 +32,7 @@ jobs:
 
       - name: moon test
         run: |
-          moon build --target js --debug
+          moon build --target js --release
 
       - name: "compiles to js"
         run: yarn && yarn vite build --base=./
