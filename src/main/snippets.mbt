@@ -52,8 +52,8 @@ let snippet_component_effects =
   #| @node.RespoComponent::named(
   #|     "demo",
   #|     effects=[
-  #|       effect_focus_data as @node.RespoEffect,
-  #|       effect_modal_fade_data as @node.RespoEffect,
+  #|       effect_focus_data,
+  #|       effect_modal_fade_data,
   #|     ],
   #|     div([])
   #| )
