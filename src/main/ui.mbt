@@ -36,6 +36,8 @@ let style_code_block : String = declare_static_style([
       line_height=1.6 |> Em,
       font_size=13,
       background_color=RawString("#FAFAFA"),
+      max_width=100 |> Vw,
+      overflow=Auto,
     ),
   ),
   ("pre&", respo_style(margin=Px(0))),
