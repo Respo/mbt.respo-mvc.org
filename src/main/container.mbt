@@ -131,7 +131,7 @@ fn comp_paired[T](left : RespoNode[T], right : RespoNode[T]) -> RespoNode[T] {
     class_name=@respo.ui_row,
     style=respo_style(gap=Px(20)).add("flex-wrap", "wrap"),
     [
-      div(class_name=@respo.ui_expand, [left]),
+      div(class_list=[@respo.ui_expand, style_section_intro], [left]),
       div(class_name=@respo.ui_expand, [right]),
     ],
   )
@@ -163,5 +163,14 @@ let style_content_area : String = declare_contained_style([
     Some("@media only screen and (max-width: 600px)"),
     "&",
     respo_style(padding=4 |> Px),
+  ),
+])
+
+///|
+let style_section_intro : String = declare_contained_style([
+  (
+    Some("@media only screen and (max-width: 600px)"),
+    "&",
+    respo_style(width=100 |> Percent),
   ),
 ])
