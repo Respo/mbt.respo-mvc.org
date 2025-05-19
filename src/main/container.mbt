@@ -15,6 +15,9 @@ fnalias @respo_node.(
 ///|
 typealias @respo_node.RespoNode
 
+///|
+fnalias @markdown.comp_md
+
 ///| container of page
 fn comp_container[T]() -> RespoNode[T] {
   div(
@@ -60,9 +63,8 @@ fn comp_container[T]() -> RespoNode[T] {
             ]),
           ]),
           comp_paired(
-            text_node(
-              "Create elements in Calcit indentation syntax with `@respo_node.div`",
-            ),
+            "Create elements in Calcit indentation syntax with `@respo_node.div`"
+            |> comp_md,
             code_block(snippet_div),
           ),
           comp_paired(
@@ -70,11 +72,11 @@ fn comp_container[T]() -> RespoNode[T] {
             code_block(snippet_nested),
           ),
           comp_paired(
-            text_node("Add text nodes with `@respo_node.text_node`"),
+            "Add text nodes with `@respo_node.text_node`" |> comp_md,
             code_block(snippet_text_node),
           ),
           comp_paired(
-            text_node("CSS in MoonBit with `@respo.declare_static_style`"),
+            "CSS in MoonBit with `@respo.declare_static_style`" |> comp_md,
             code_block(snippet_css),
           ),
           div([text_node(class_name=style_section_title, "Create Components")]),
@@ -84,9 +86,8 @@ fn comp_container[T]() -> RespoNode[T] {
           ),
           div([text_node(class_name=style_section_title, "Adding Effects")]),
           comp_paired(
-            text_node(
-              "Define effects according to `RespoEffect` trait. Data is accessible in `self`",
-            ),
+            "Define effects according to `RespoEffect` trait. Data is accessible in `self`"
+            |> comp_md,
             code_block(snippet_effect_def),
           ),
           comp_paired(
@@ -95,9 +96,8 @@ fn comp_container[T]() -> RespoNode[T] {
           ),
           div([text_node(class_name=style_section_title, "States Management")]),
           comp_paired(
-            text_node(
-              "Respo uses an Atom to maintain global states. Global states and \"Single Source of Truth\" are preferred",
-            ),
+            "Respo uses an Atom to maintain global states. Global states and \"Single Source of Truth\" are preferred"
+            |> comp_md,
             code_block(snippet_global_store),
           ),
           comp_paired(
