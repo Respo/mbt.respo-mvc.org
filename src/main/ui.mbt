@@ -3,7 +3,7 @@ extern "js" fn moonbit_code_to_html(code : String) -> String =
   #| (code) => { return window.moonbit_code_to_html(code)}
 
 ///| a custom style for code block
-fn code_block[T](
+fn[T] code_block(
   class_name? : String,
   style? : @respo_node.RespoStyle,
   code : String
@@ -21,7 +21,7 @@ fn code_block[T](
 }
 
 ///|
-let style_code_block : String = declare_static_style([
+let style_code_block : String = static_style([
   (
     "&",
     respo_style(

@@ -7,7 +7,7 @@ let snippet_div =
   #|     font_size=16,
   #|     font_family="Helvetic",
   #|   ),
-  #|   event={}..set(Click, fn(e, d) { println("TODO") }),
+  #|   on_click=fn(e, d) { println("TODO") },
   #|   [],
   #| )
 

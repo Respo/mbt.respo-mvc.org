@@ -7,8 +7,8 @@ fnalias @respo_node.(
   a,
   img,
   pre,
-  declare_static_style,
-  declare_contained_style,
+  static_style,
+  contained_static_style,
   button,
   space
 )
@@ -20,7 +20,7 @@ typealias @respo_node.RespoNode
 fnalias @markdown.comp_md
 
 ///| container of page
-fn comp_container[T]() -> RespoNode[T] {
+fn[T] comp_container() -> RespoNode[T] {
   div(
     class_name=str_spaced([@respo.ui_global, @respo.ui_fullscreen]),
     style=respo_style(padding=12 |> Px),
@@ -126,7 +126,7 @@ fn comp_container[T]() -> RespoNode[T] {
 }
 
 ///|
-fn comp_paired[T](left : RespoNode[T], right : RespoNode[T]) -> RespoNode[T] {
+fn[T] comp_paired(left : RespoNode[T], right : RespoNode[T]) -> RespoNode[T] {
   div(
     class_name=@respo.ui_row,
     style=respo_style(gap=Px(20)).add("flex-wrap", "wrap"),
@@ -138,15 +138,15 @@ fn comp_paired[T](left : RespoNode[T], right : RespoNode[T]) -> RespoNode[T] {
 }
 
 ///|
-let style_gap : String = declare_static_style([("&", respo_style(gap=12 |> Px))])
+let style_gap : String = static_style([("&", respo_style(gap=12 |> Px))])
 
 ///|
-let style_section_title : String = declare_static_style([
+let style_section_title : String = static_style([
   ("&", respo_style(font_weight="Bold", font_size=20)),
 ])
 
 ///|
-let style_content_area : String = declare_contained_style([
+let style_content_area : String = contained_static_style([
   (
     None,
     "&",
@@ -167,7 +167,7 @@ let style_content_area : String = declare_contained_style([
 ])
 
 ///|
-let style_section_intro : String = declare_contained_style([
+let style_section_intro : String = contained_static_style([
   (
     Some("@media only screen and (max-width: 600px)"),
     "&",
