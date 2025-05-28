@@ -1,39 +1,45 @@
+///|
+extern "js" fn moonbit_code_to_html(code : String) -> String =
+  #| (code) => { return window.moonbit_code_to_html(code)}
+
 ///| a custom style for code block
-fn code_block[T](
+fn[T] code_block(
   class_name? : String,
   style? : @respo_node.RespoStyle,
   code : String
 ) -> @respo_node.RespoNode[T] {
   pre(
-    class_name=str_some_spaced([
-      Some(@respo.ui_font_code),
-      Some(@respo.ui_expand),
-      class_name,
-      Some(style_code_block),
-    ]),
+    class_list=[
+      @respo.ui_font_code,
+      @respo.ui_expand,
+      class_name.or_default(),
+      style_code_block,
+    ],
     style=style.or_default(),
-    inner_text=code,
+    innerHTML=moonbit_code_to_html(code),
   )
 }
 
 ///|
-fn str_some_spaced(arr : Array[String?]) -> String {
-  arr.filter(fn(x) { not(x.is_empty()) }).map(fn(x) { x.unwrap() })
-  |> @string.concat(separator=" ")
-}
-
-///|
-let style_code_block : String = declare_static_style([
+let style_code_block : String = static_style([
   (
     "&",
     respo_style(
-      padding=Px(8),
-      // background_color=Hsl(0, 0, 95),
-      border=(1.0, Solid, Hsl(0, 0, 90)),
+      padding=8 |> Px,
+      border=(
+        // background_color=Hsl(0, 0, 95),
+        1.0,
+        Solid,
+        Hsl(0, 0, 90),
+      ),
       border_radius=4,
-      line_height=Em(1.6),
+      line_height=1.6 |> Em,
       font_size=13,
+      background_color=RawString("#FAFAFA"),
+      max_width=100 |> Vw,
+      overflow=Auto,
     ),
   ),
   ("pre&", respo_style(margin=Px(0))),
+  ("pre > pre", respo_style(margin=Px(0))),
 ])

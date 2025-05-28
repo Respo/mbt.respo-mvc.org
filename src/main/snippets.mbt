@@ -7,7 +7,7 @@ let snippet_div =
   #|     font_size=16,
   #|     font_family="Helvetic",
   #|   ),
-  #|   event={}..set(Click, fn(e, d) { println("TODO") }),
+  #|   on_click=fn(e, d) { println("TODO") },
   #|   [],
   #| )
 
@@ -52,8 +52,8 @@ let snippet_component_effects =
   #| @node.RespoComponent::named(
   #|     "demo",
   #|     effects=[
-  #|       effect_focus_data as @node.RespoEffect,
-  #|       effect_modal_fade_data as @node.RespoEffect,
+  #|       effect_focus_data,
+  #|       effect_modal_fade_data,
   #|     ],
   #|     div([])
   #| )

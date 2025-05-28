@@ -3,24 +3,13 @@
   "import": [
     {
       "path": "tiye/respo/lib",
-      "alias": "respo",
-      "value": ["ui_row", "ui_row_middle", "ui_row_center", "ui_row_parted"]
+      "alias": "respo"
     },
     {
       "path": "tiye/respo/lib/node",
-      "alias": "respo_node",
-      "value": [
-        "div",
-        "respo_style",
-        "declare_static_style",
-        "pre",
-        "a",
-        "span",
-        "img",
-        "str_spaced",
-        "text_node"
-      ]
+      "alias": "respo_node"
     },
-    { "path": "tiye/dom-ffi/lib", "alias": "dom_ffi" }
+    { "path": "tiye/dom-ffi/lib", "alias": "dom_ffi" },
+    { "path": "tiye/respo-markdown/lib", "alias": "markdown" }
   ]
 }

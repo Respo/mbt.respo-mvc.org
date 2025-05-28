@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "vite": "^5.4.8"
+  },
+  "dependencies": {
+    "shiki": "^3.4.2"
   }
 }
