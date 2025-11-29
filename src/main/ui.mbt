@@ -37,7 +37,7 @@ let style_code_block : String = static_style([
       line_height=1.6 |> Em,
       font_size=13,
       background_color=RawString("#FAFAFA"),
-      max_width=100 |> Vw,
+      max_width=Custom("calc(100vw - 32px)"),
       overflow=Auto,
     ),
   ),
