@@ -174,6 +174,6 @@ let style_section_intro : String = contained_static_style([
   (
     Some("@media only screen and (max-width: 600px)"),
     "&",
-    respo_style(width=100 |> Percent),
+    respo_style(width=100 |> Percent, min_width=300 |> Px),
   ),
 ])
