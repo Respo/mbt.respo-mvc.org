@@ -1,7 +1,6 @@
 ///|
-fnalias @respo_node.(
+using @respo_node {
   div,
-  respo_style,
   str_spaced,
   text_node,
   a,
@@ -10,16 +9,20 @@ fnalias @respo_node.(
   static_style,
   contained_static_style,
   button,
-  space
-)
+  space,
+}
 
 ///|
-typealias @respo_node.RespoNode
+using @css {respo_style}
 
 ///|
-fnalias @markdown.comp_md
+using @respo_node {type RespoNode}
 
-///| container of page
+///|
+using @markdown {comp_md}
+
+///|
+/// container of page
 fn[T] comp_container() -> RespoNode[T] {
   div(
     class_name=str_spaced([@respo.ui_global, @respo.ui_fullscreen]),
@@ -171,6 +174,6 @@ let style_section_intro : String = contained_static_style([
   (
     Some("@media only screen and (max-width: 600px)"),
     "&",
-    respo_style(width=100 |> Percent),
+    respo_style(width=100 |> Percent, min_width=300 |> Px),
   ),
 ])

@@ -18,43 +18,40 @@ struct Task {
 
 ///|
 enum ActionOp {
-  Noop
   StatesChange(@respo.RespoUpdateState)
 }
 
 ///|
-fn ActionOp::default() -> ActionOp {
-  Noop
+impl @respo_node.RespoAction for ActionOp with build_states_action(cursor, a, j) {
+  StatesChange({
+    cursor,
+    data: if a is Some(a) {
+      Some(@dom_ffi.js_obscure_to_v(a))
+    } else {
+      None
+    },
+    backup: j,
+  })
 }
 
 ///|
-impl @respo_node.RespoAction for ActionOp with build_states_action(cursor, a) {
-  ActionOp::StatesChange({ cursor, data: Some(a.to_json()) })
-}
-
-///|
-fn ActionOp::to_string(self : ActionOp) -> String {
-  match self {
-    Noop => "Noop"
-    StatesChange(states) =>
-      "StatesChange(\{states.cursor}  \{states.data.to_json()})"
+impl Show for ActionOp with output(self, logger) {
+  let ret = match self {
+    StatesChange(state) =>
+      "StatesChange(cursor: \{state.cursor}, backup: \{state.backup.to_json()})"
   }
+  logger.write_string(ret)
 }
 
 ///|
-fn get_states(self : Store) -> @respo.RespoStatesTree {
+fn Store::get_states(self : Store) -> @respo.RespoStatesTree {
   self.states
 }
 
-///| TODO mutation might break memoization infuture
-fn update(self : Store, op : ActionOp) -> Unit {
+///|
+/// TODO mutation might break memoization infuture
+fn Store::update(self : Store, op : ActionOp) -> Unit {
   match op {
     StatesChange(states) => self.states.set_in_mut(states)
-    _ => ()
   }
-}
-
-///|
-fn to_string(self : Store) -> String {
-  self.to_json().stringify(indent=2)
 }
