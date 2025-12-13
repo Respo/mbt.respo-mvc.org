@@ -37,6 +37,9 @@ jobs:
       - name: "compiles to js"
         run: yarn && yarn vite build --base=./
 
+      - name: "copy llms.txt"
+        run: cp Agents.md dist/llms.txt
+
       # - name: moon bundle
       #   run: moon bundle
 

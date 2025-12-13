@@ -30,7 +30,7 @@ fn start_app() -> Unit {
   // @dom_ffi.log("store: " + app.store.val.to_json().stringify(indent=2))
   app.render_loop(fn() { view(app.store.val) }, fn(op) {
     @dom_ffi.log("Action: " + op.to_string())
-    app.store.val.update(op)
+    app.store.val = app.store.val.update(op)
   })
   let dev_mode = @dom_ffi.new_url_search_params(window.location().search()).get(
     "mode",
