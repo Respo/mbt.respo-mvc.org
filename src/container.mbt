@@ -320,7 +320,7 @@ fn[T] comp_community() -> RespoNode[T] {
         "API Docs", "https://mooncakes.io/docs/tiye/respo", "Complete API reference",
       ),
       comp_community_link(
-        "MoonBit", "https://www.moonbitlang.com/", "Learn MoonBit language",
+        "LLM Agents", "https://mbt.respo-mvc.org/llms.txt", "Guide for AI coding assistants",
       ),
     ]),
   ])
