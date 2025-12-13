@@ -5,3 +5,6 @@ LICENSE -diff linguist-generated
 
 
 js/*.json -diff linguist-generated
+
+Agents.md -diff linguist-generated
+llms/*.md -diff linguist-generated
