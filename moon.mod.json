@@ -2,13 +2,13 @@
   "name": "tiye/mbt_site",
   "version": "0.1.0",
   "deps": {
-    "tiye/respo": "0.1.2",
-    "tiye/respo_css": "0.1.3",
+    "tiye/respo": "0.2.2",
+    "tiye/respo_css": "0.1.4",
     // "tiye/respo": {
     //   "path": "/Users/chenyong/repo/respo/respo.mbt"
     // },
-    "tiye/dom-ffi": "0.2.1",
-    "tiye/respo-markdown": "0.1.0"
+    "tiye/dom-ffi": "0.2.3",
+    "tiye/respo-markdown": "0.1.1"
   },
   "preferred-target": "js",
   "readme": "README.md",
