@@ -1,74 +1,88 @@
 ///|
-let snippet_div =
-  #| div(
-  #|   class_name="demo",
-  #|   style=@respo_node.respo_style(
-  #|     color=Red,
-  #|     font_size=16,
-  #|     font_family="Helvetic",
-  #|   ),
-  #|   on_click=fn(e, d) { println("TODO") },
-  #|   [],
-  #| )
+let snippet_component =
+  #| fn comp_counter(states : RespoStatesTree) -> RespoNode[ActionOp] {
+  #|   let ((state : CounterState), cursor) = states.local_pair()
+  #|
+  #|   div(class_name=@respo.ui_column, [
+  #|     text_node("Count: \{state.count}"),
+  #|     button(
+  #|       inner_text="Increment",
+  #|       class_name=@respo.ui_button,
+  #|       on_click=fn(_e, dispatch) {
+  #|         dispatch.set_state(cursor, { count: state.count + 1 })
+  #|       },
+  #|     ),
+  #|   ])
+  #| }
 
 ///|
-let snippet_nested =
-  #| div([span([]), div([])])
-
-///|
-let snippet_text_node =
-  #| text_node("demo", class_name="demo")
+let snippet_state =
+  #| struct CounterState { count : Int }
+  #|   derive(Default, ToJson, FromJson)
+  #|
+  #| // Parent passes sub-tree to children
+  #| fn comp_app(states : RespoStatesTree) -> RespoNode[ActionOp] {
+  #|   div([
+  #|     comp_header(states.pick("header")),
+  #|     comp_counter(states.pick("counter")),
+  #|   ])
+  #| }
+  #|
+  #| // Child gets its own state via cursor
+  #| fn comp_counter(states : RespoStatesTree) -> RespoNode[ActionOp] {
+  #|   let ((state : CounterState), cursor) = states.local_pair()
+  #|   button(on_click=fn(_e, dispatch) {
+  #|     dispatch.set_state(cursor, { count: state.count + 1 })
+  #|   })
+  #| }
 
 ///|
 let snippet_css =
-  #| let style_hover = declare_static_style(
-  #|   [
-  #|     ("&", respo_style(color=Hex(255, 255, 255))),
-  #|     ("&:hover", respo_style(color=Hex(239, 239, 239))),
-  #|   ],
+  #| let style_card : String = static_style([
+  #|   ("&", respo_style(
+  #|     padding=Px(16),
+  #|     border_radius=8,
+  #|     background_color=White,
+  #|   )),
+  #|   ("&:hover", respo_style(
+  #|     background_color=Hsl(0, 0, 97),
+  #|   )),
+  #| ])
+  #|
+  #| // Responsive styles
+  #| let style_container : String = contained_static_style([
+  #|   (None, "&", respo_style(padding=Px(40))),
+  #|   (Some("@media (max-width: 768px)"), "&", respo_style(padding=Px(16))),
+  #| ])
+
+///|
+let snippet_events =
+  #| input(
+  #|   value=state.text,
+  #|   on_input=fn(e, dispatch) {
+  #|     if e is Input(value~, ..) {
+  #|       dispatch.set_state(cursor, { text: value })
+  #|     }
+  #|   },
+  #|   on_keydown=fn(e, dispatch) {
+  #|     if e is Keyboard(key~, ..) && key == "Enter" {
+  #|       dispatch.run(SubmitAction(state.text))
+  #|     }
+  #|   },
   #| )
 
 ///|
-let snippet_component =
-  #| fn comp_demo[T](p1 : String, p2 : String) -> @respo_node.RespoNode[T] {
-  #|   div([text_node(p1), text_node(p2)])
-  #| }
-  #| comp_demo("a", "b")
-
-///|
-let snippet_effect_def =
-  #| type DemoData Unit derive(Default, Eq, ToJson, @json.FromJson)
+let snippet_effects =
+  #| struct FocusEffect { should_focus : Bool }
+  #|   derive(ToJson)
   #|
-  #| impl @respo_node.RespoEffect for DemoData with before_update(self, _el) {
-  #|   @dom_ffi.log("before update" + self._.to_string())
+  #| impl RespoEffect for FocusEffect with mounted(self, el) {
+  #|   if self.should_focus { el.focus() }
   #| }
   #|
-  #| impl @respo_node.RespoEffect for DemoData with updated(_self, _el) {
-  #|   @dom_ffi.log("updated")
-  #| }
-
-///|
-let snippet_component_effects =
-  #| @node.RespoComponent::named(
-  #|     "demo",
-  #|     effects=[
-  #|       effect_focus_data,
-  #|       effect_modal_fade_data,
-  #|     ],
-  #|     div([])
-  #| )
-
-///|
-let snippet_global_store =
-  #| struct Store {
-  #|   states : @respo.RespoStatesTree
-  #| } derive(ToJson, @json.FromJson)
-
-///|
-let snippet_update_store =
-  #| fn update(self : Store, op : ActionOp) -> Unit {
-  #|   match op {
-  #|     StatesChange(states) => self.states.set_in_mut(states)
-  #|     _ => ()
-  #|   }
-  #| }
+  #| // Use effect in component
+  #| RespoComponent::named(
+  #|   "my-input",
+  #|   effects=[FocusEffect { should_focus: true }],
+  #|   input(class_name=@respo.ui_input),
+  #| ).to_node()
