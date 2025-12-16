@@ -1,7 +1,7 @@
 ///|
 struct Store {
   states : @respo.RespoStatesTree
-} derive(ToJson, @json.FromJson)
+} derive(Eq, ToJson, @json.FromJson)
 
 ///|
 impl Default for Store with default() -> Store {
@@ -23,15 +23,7 @@ enum ActionOp {
 
 ///|
 impl @respo_node.RespoAction for ActionOp with build_states_action(cursor, a, j) {
-  StatesChange({
-    cursor,
-    data: if a is Some(a) {
-      Some(@dom_ffi.js_obscure_to_v(a))
-    } else {
-      None
-    },
-    backup: j,
-  })
+  StatesChange({ cursor, data: a.map(@dom_ffi.js_obscure_to_v), backup: j })
 }
 
 ///|
@@ -49,9 +41,9 @@ fn Store::get_states(self : Store) -> @respo.RespoStatesTree {
 }
 
 ///|
-/// TODO mutation might break memoization infuture
-fn Store::update(self : Store, op : ActionOp) -> Unit {
+/// Immutable update: returns a new Store with the action applied
+fn Store::update(self : Store, op : ActionOp) -> Store {
   match op {
-    StatesChange(states) => self.states.set_in_mut(states)
+    StatesChange(change) => { states: self.states.set_in(change) }
   }
 }
