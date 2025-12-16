@@ -9,7 +9,7 @@
     "watch-mbt": "moon build --target wasm-gc --debug --watch"
   },
   "devDependencies": {
-    "vite": "^7.2.7"
+    "vite": "^7.3.0"
   },
   "dependencies": {
     "shiki": "^3.20.0"
