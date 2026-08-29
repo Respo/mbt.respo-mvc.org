@@ -1,6 +1,6 @@
 ///|
 let snippet_component =
-  #| fn comp_counter(states : RespoStatesTree) -> RespoNode[ActionOp] {
+  #| fn comp_counter(states : RespoStatesTree) -> RespoNode[ActionOp, Unit] {
   #|   let ((state : CounterState), cursor) = states.local_pair()
   #|
   #|   div(class_name=@respo.ui_column, [
@@ -21,7 +21,7 @@ let snippet_state =
   #|   derive(Default, ToJson, FromJson)
   #|
   #| // Parent passes sub-tree to children
-  #| fn comp_app(states : RespoStatesTree) -> RespoNode[ActionOp] {
+  #| fn comp_app(states : RespoStatesTree) -> RespoNode[ActionOp, Unit] {
   #|   div([
   #|     comp_header(states.pick("header")),
   #|     comp_counter(states.pick("counter")),
@@ -29,7 +29,7 @@ let snippet_state =
   #| }
   #|
   #| // Child gets its own state via cursor
-  #| fn comp_counter(states : RespoStatesTree) -> RespoNode[ActionOp] {
+  #| fn comp_counter(states : RespoStatesTree) -> RespoNode[ActionOp, Unit] {
   #|   let ((state : CounterState), cursor) = states.local_pair()
   #|   button(on_click=fn(_e, dispatch) {
   #|     dispatch.set_state(cursor, { count: state.count + 1 })

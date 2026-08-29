@@ -20,18 +20,18 @@ using @css {respo_style}
 using @respo_node {type RespoNode}
 
 ///|
-using @markdown {comp_md}
-
 // ============================================================================
 // Main Container
 // ============================================================================
 
 ///|
 /// container of page
-fn[T] comp_container() -> RespoNode[T] {
+fn[T] comp_container() -> RespoNode[T, Unit] {
   div(class_name=str_spaced([@respo.ui_global, style_page_container]), [
     // Hero Section
     comp_hero(),
+    // Release status
+    comp_release_status(),
     // Features Section
     comp_features(),
     // Code Examples Section
@@ -52,7 +52,7 @@ fn[T] comp_container() -> RespoNode[T] {
 // ============================================================================
 
 ///|
-fn[T] comp_hero() -> RespoNode[T] {
+fn[T] comp_hero() -> RespoNode[T, Unit] {
   div(class_name=style_hero, [
     div(class_name=style_hero_content, [
       // Logo
@@ -66,12 +66,12 @@ fn[T] comp_hero() -> RespoNode[T] {
       div(class_name=style_hero_title, [text_node("Respo")]),
       // Tagline
       div(class_name=style_hero_tagline, [
-        text_node("Virtual DOM Library for MoonBit"),
+        text_node("A typed UI runtime for MoonBit"),
       ]),
       // Description
       div(class_name=style_hero_description, [
         text_node(
-          "Build fast, interactive web interfaces with functional components, immutable data, and efficient rendering.",
+          "Build browser interfaces with MoonBit, a typed virtual-DOM DSL, explicit state updates, and composable styles.",
         ),
       ]),
       // CTA Buttons
@@ -79,16 +79,53 @@ fn[T] comp_hero() -> RespoNode[T] {
         a(href="https://mooncakes.io/docs/tiye/respo", target=Blank, children=[
           button(
             class_name=str_spaced([style_btn_primary]),
-            inner_text="Get Started",
+            inner_text="Read Respo docs",
           ),
         ]),
         space(width=16),
-        a(href="https://github.com/Respo/respo.mbt", target=Blank, children=[
-          button(
-            class_name=str_spaced([@respo.ui_button, style_btn_secondary]),
-            inner_text="GitHub",
-          ),
-        ]),
+        a(
+          href="https://github.com/Respo/react.mbt/releases/tag/v0.1.0",
+          target=Blank,
+          children=[
+            button(
+              class_name=str_spaced([@respo.ui_button, style_btn_secondary]),
+              inner_text="React bindings v0.1.0",
+            ),
+          ],
+        ),
+      ]),
+    ]),
+  ])
+}
+
+// ============================================================================
+// Release Status
+// ============================================================================
+
+///|
+fn[T] comp_release_status() -> RespoNode[T, Unit] {
+  div(class_name=style_release_band, [
+    div(class_name=style_release_content, [
+      div(class_name=style_release_label, [text_node("CURRENT RELEASES")]),
+      div(class_name=style_release_title, [
+        text_node("Respo 0.3.4 · React bindings 0.1.0"),
+      ]),
+      div(class_name=style_release_description, [
+        text_node(
+          "Respo 0.3.4 is available on Mooncakes. The React binding v0.1.0 is available as a verified GitHub Release package while registry publication is prepared.",
+        ),
+      ]),
+      div(class_name=style_release_links, [
+        a(
+          href="https://github.com/Respo/respo.mbt/releases/tag/0.3.4",
+          target=Blank,
+          inner_text="Respo 0.3.4 release",
+        ),
+        a(
+          href="https://github.com/Respo/react.mbt/releases/tag/v0.1.0",
+          target=Blank,
+          inner_text="React v0.1.0 package",
+        ),
       ]),
     ]),
   ])
@@ -99,27 +136,27 @@ fn[T] comp_hero() -> RespoNode[T] {
 // ============================================================================
 
 ///|
-fn[T] comp_features() -> RespoNode[T] {
+fn[T] comp_features() -> RespoNode[T, Unit] {
   div(class_name=style_section, [
-    div(class_name=style_section_title, [text_node("Why Respo?")]),
+    div(class_name=style_section_title, [text_node("What Respo provides")]),
     div(class_name=style_features_grid, [
       comp_feature_card(
-        "🔥", "Hot Reload Friendly", "Global states tree design enables seamless hot reload during development. State persists across code changes.",
+        "🧩", "Functional components", "Compose pages from MoonBit functions that return virtual DOM nodes. Keep rendering code ordinary, typed MoonBit.",
       ),
       comp_feature_card(
-        "🌳", "States Tree with Cursor", "All states stored in a single atom with tree structure. Use cursor to locate and update nested states precisely.",
+        "🌳", "Local state with cursors", "Keep component-local state in a shared immutable states tree, then address a subtree precisely with a cursor.",
       ),
       comp_feature_card(
-        "➡️", "Uni-directional Data Flow", "Actions can only be dispatched from user events. Predictable state updates with clear data flow.",
+        "➡️", "Explicit updates", "Model application changes as actions and update immutable store data predictably from event handlers.",
       ),
       comp_feature_card(
-        "✨", "Type-Safe & Autocomplete", "Leverage MoonBit's powerful type system. Full IDE support with autocompletion for components and styles.",
+        "✨", "Typed DOM and styles", "Use MoonBit types and editor tooling while composing elements, events, attributes, and CSS-in-MoonBit styles.",
       ),
       comp_feature_card(
-        "🎯", "Pure Effects System", "Effects handle DOM side effects only, cannot dispatch actions. Clean separation of concerns.",
+        "🎯", "DOM lifecycle effects", "Attach mount, update, and unmount effects when a component needs to coordinate with a DOM element.",
       ),
       comp_feature_card(
-        "⚡", "Efficient Rendering", "Virtual DOM diffing with reference equality. Unchanged data means skipped re-renders.",
+        "⚡", "Virtual DOM updates", "Describe the UI declaratively and let Respo reconcile the DOM as immutable data and component state change.",
       ),
     ]),
   ])
@@ -130,7 +167,7 @@ fn[T] comp_feature_card(
   icon : String,
   title : String,
   description : String,
-) -> RespoNode[T] {
+) -> RespoNode[T, Unit] {
   div(class_name=style_feature_card, [
     span(class_name=style_feature_icon, inner_text=icon, []),
     div(class_name=style_feature_title, [text_node(title)]),
@@ -143,7 +180,7 @@ fn[T] comp_feature_card(
 // ============================================================================
 
 ///|
-fn[T] comp_code_examples() -> RespoNode[T] {
+fn[T] comp_code_examples() -> RespoNode[T, Unit] {
   div(class_name=str_spaced([style_section, style_section_alt]), [
     div(class_name=style_section_title, [text_node("Simple & Expressive")]),
     // Example 1: Component
@@ -152,8 +189,9 @@ fn[T] comp_code_examples() -> RespoNode[T] {
         div(class_name=style_code_section_title, [
           text_node("Create Components"),
         ]),
-        "Components are plain functions. Use pattern matching, loops, and all MoonBit features."
-        |> comp_md,
+        text_node(
+          "Components are plain functions. Use pattern matching, loops, and all MoonBit features.",
+        ),
       ]),
       code_block(snippet_component),
     ]),
@@ -163,8 +201,9 @@ fn[T] comp_code_examples() -> RespoNode[T] {
         div(class_name=style_code_section_title, [
           text_node("States Tree & Cursor"),
         ]),
-        "All component states live in a global tree. Use `states.pick(\"key\")` to pass sub-tree, and `states.local_pair()` to get state with cursor for updates."
-        |> comp_md,
+        text_node(
+          "Component state lives in a shared tree. Use states.pick to pass a subtree and states.local_pair to access state with its update cursor.",
+        ),
       ]),
       code_block(snippet_state),
     ]),
@@ -174,8 +213,9 @@ fn[T] comp_code_examples() -> RespoNode[T] {
         div(class_name=style_code_section_title, [
           text_node("Type-Safe Styling"),
         ]),
-        "Define styles in MoonBit with `static_style`. Full CSS support with type checking."
-        |> comp_md,
+        text_node(
+          "Define styles in MoonBit with static_style and respo_style, then reuse the generated class name.",
+        ),
       ]),
       code_block(snippet_css),
     ]),
@@ -183,8 +223,9 @@ fn[T] comp_code_examples() -> RespoNode[T] {
     div(class_name=style_code_section, [
       div(class_name=style_code_description, [
         div(class_name=style_code_section_title, [text_node("Handle Events")]),
-        "Event handlers receive event data and dispatch function. Pattern match on event types."
-        |> comp_md,
+        text_node(
+          "Event handlers receive event data and a dispatch function. Pattern match on the event data your component needs.",
+        ),
       ]),
       code_block(snippet_events),
     ]),
@@ -192,8 +233,9 @@ fn[T] comp_code_examples() -> RespoNode[T] {
     div(class_name=style_code_section, [
       div(class_name=style_code_description, [
         div(class_name=style_code_section_title, [text_node("DOM Effects")]),
-        "Effects run on mount/update for DOM side effects. They cannot dispatch actions - keeping data flow predictable."
-        |> comp_md,
+        text_node(
+          "Effects run during DOM lifecycle transitions, keeping DOM coordination separate from state updates.",
+        ),
       ]),
       code_block(snippet_effects),
     ]),
@@ -205,23 +247,29 @@ fn[T] comp_code_examples() -> RespoNode[T] {
 // ============================================================================
 
 ///|
-fn[T] comp_getting_started() -> RespoNode[T] {
+fn[T] comp_getting_started() -> RespoNode[T, Unit] {
   div(class_name=style_section, [
     div(class_name=style_section_title, [text_node("Getting Started")]),
     div(class_name=style_getting_started_content, [
       div(class_name=style_step_card, [
         span(class_name=style_step_number, inner_text="1", []),
         div(class_name=style_step_title, [text_node("Install MoonBit")]),
-        "Get the MoonBit toolchain from [moonbitlang.com](https://www.moonbitlang.com/download/)"
-        |> comp_md,
+        text_node(
+          "Install the MoonBit toolchain, then return here to add Respo to a project.",
+        ),
+        a(
+          href="https://www.moonbitlang.com/download/",
+          target=Blank,
+          inner_text="MoonBit downloads",
+        ),
       ]),
       div(class_name=style_step_card, [
         span(class_name=style_step_number, inner_text="2", []),
-        div(class_name=style_step_title, [text_node("Add Respo")]),
+        div(class_name=style_step_title, [text_node("Add Respo 0.3.4")]),
         div(class_name=style_command_line, [
           span(
             class_name=str_spaced([@respo.ui_font_code, style_inline_code]),
-            inner_text="moon add tiye/respo",
+            inner_text="moon add tiye/respo@0.3.4",
             [],
           ),
         ]),
@@ -229,8 +277,19 @@ fn[T] comp_getting_started() -> RespoNode[T] {
       div(class_name=style_step_card, [
         span(class_name=style_step_number, inner_text="3", []),
         div(class_name=style_step_title, [text_node("Start Building")]),
-        "Check out the [Workflow Template](https://github.com/Respo/respo-moonbit-workflow) for a complete example."
-        |> comp_md,
+        text_node(
+          "Use the API documentation for package details, or begin from the workflow template.",
+        ),
+        a(
+          href="https://mooncakes.io/docs/tiye/respo",
+          target=Blank,
+          inner_text="Respo API documentation",
+        ),
+        a(
+          href="https://github.com/Respo/respo-moonbit-workflow",
+          target=Blank,
+          inner_text="Workflow template",
+        ),
       ]),
     ]),
   ])
@@ -241,7 +300,7 @@ fn[T] comp_getting_started() -> RespoNode[T] {
 // ============================================================================
 
 ///|
-fn[T] comp_why_moonbit() -> RespoNode[T] {
+fn[T] comp_why_moonbit() -> RespoNode[T, Unit] {
   div(class_name=str_spaced([style_section, style_section_alt]), [
     div(class_name=style_section_title, [text_node("Why MoonBit?")]),
     div(class_name=style_moonbit_intro, [
@@ -285,7 +344,7 @@ fn[T] comp_moonbit_feature(
   icon : String,
   title : String,
   description : String,
-) -> RespoNode[T] {
+) -> RespoNode[T, Unit] {
   div(class_name=style_moonbit_feature, [
     span(class_name=style_moonbit_icon, inner_text=icon, []),
     div([
@@ -300,7 +359,7 @@ fn[T] comp_moonbit_feature(
 // ============================================================================
 
 ///|
-fn[T] comp_community() -> RespoNode[T] {
+fn[T] comp_community() -> RespoNode[T, Unit] {
   div(class_name=str_spaced([style_section, style_section_alt]), [
     div(class_name=style_section_title, [text_node("Join the Community")]),
     div(class_name=style_community_description, [
@@ -317,7 +376,11 @@ fn[T] comp_community() -> RespoNode[T] {
         "Ask questions & share ideas",
       ),
       comp_community_link(
-        "API Docs", "https://mooncakes.io/docs/tiye/respo", "Complete API reference",
+        "Respo API Docs", "https://mooncakes.io/docs/tiye/respo", "Generated API reference and package documentation",
+      ),
+      comp_community_link(
+        "React Bindings", "https://github.com/Respo/react.mbt/releases/tag/v0.1.0",
+        "Verified v0.1.0 release archive and release notes",
       ),
       comp_community_link(
         "LLM Agents", "https://mbt.respo-mvc.org/llms.txt", "Guide for AI coding assistants",
@@ -331,7 +394,7 @@ fn[T] comp_community_link(
   title : String,
   href_url : String,
   description : String,
-) -> RespoNode[T] {
+) -> RespoNode[T, Unit] {
   a(href=href_url, target=Blank, class_name=style_community_card, children=[
     div(class_name=style_community_card_title, [text_node(title)]),
     div(class_name=style_community_card_desc, [text_node(description)]),
@@ -343,7 +406,7 @@ fn[T] comp_community_link(
 // ============================================================================
 
 ///|
-fn[T] comp_footer() -> RespoNode[T] {
+fn[T] comp_footer() -> RespoNode[T, Unit] {
   div(class_name=style_footer, [
     div(class_name=style_footer_content, [
       div(class_name=style_footer_brand, [
@@ -351,7 +414,7 @@ fn[T] comp_footer() -> RespoNode[T] {
         span(inner_text="Respo", []),
       ]),
       div(class_name=style_footer_text, [
-        text_node("Built with MoonBit. Inspired by React & Reagent."),
+        text_node("Typed UI building blocks for MoonBit on the web."),
       ]),
       div(class_name=style_footer_links, [
         a(inner_text="GitHub", href="https://github.com/Respo", target=Blank),
@@ -384,7 +447,7 @@ fn[T] code_block(
   class_name? : String,
   style? : @css.RespoStyle,
   code : String,
-) -> RespoNode[T] {
+) -> RespoNode[T, Unit] {
   div(class_name=style_code_wrapper, [
     span(class_name=style_code_lang_tag, inner_text="MoonBit", []),
     pre(
@@ -440,6 +503,84 @@ let style_page_container : String = static_style([
     respo_style(background_color=RawString("#FAFBFC")).add(
       "min-height", "100vh",
     ),
+  ),
+])
+
+// Release status styles
+
+///|
+let style_release_band : String = static_style([
+  (
+    "&",
+    respo_style(
+      background_color=RawString("#fff7ed"),
+      border=CssBorder(1.0, Solid, RawString("#fed7aa")),
+    )
+    .add("border-left", "0")
+    .add("border-right", "0"),
+  ),
+])
+
+///|
+let style_release_content : String = static_style([
+  (
+    "&",
+    respo_style(max_width=900 |> Px, margin=Auto, padding=28 |> Px)
+    .add("padding-left", "24px")
+    .add("padding-right", "24px")
+    .add("text-align", "center"),
+  ),
+])
+
+///|
+let style_release_label : String = static_style([
+  (
+    "&",
+    respo_style(font_size=12, font_weight="700", color=RawString("#9a3412")).add(
+      "letter-spacing", "0.08em",
+    ),
+  ),
+])
+
+///|
+let style_release_title : String = static_style([
+  (
+    "&",
+    respo_style(
+      font_size=24,
+      font_weight="700",
+      color=RawString("#431407"),
+      margin_top=8 |> Px,
+      margin_bottom=8 |> Px,
+    ),
+  ),
+])
+
+///|
+let style_release_description : String = static_style([
+  (
+    "&",
+    respo_style(
+      font_size=15,
+      color=RawString("#7c2d12"),
+      line_height=1.6 |> Em,
+      max_width=760 |> Px,
+      margin=Auto,
+    ),
+  ),
+])
+
+///|
+let style_release_links : String = static_style([
+  (
+    "&",
+    respo_style(display=Flex, justify_content=Center, margin_top=16 |> Px)
+    .add("gap", "20px")
+    .add("flex-wrap", "wrap"),
+  ),
+  (
+    "& a",
+    respo_style(font_size=14, font_weight="600", color=RawString("#9a3412")),
   ),
 ])
 
