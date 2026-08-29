@@ -4,7 +4,7 @@ let app_store_key : String = "respo-mbt-home"
 ///|
 fn view(
   store : Store,
-) -> @respo_node.RespoNode[ActionOp] raise @respo_node.RespoCommonError {
+) -> @respo_node.RespoNode[ActionOp, Unit] raise @respo_node.RespoCommonError {
   if false {
     raise @respo_node.RespoCommonError("TODO")
   }
@@ -22,14 +22,13 @@ fn start_app() -> Unit {
     .unwrap()
     .reinterpret_as_node()
   let app : @respo.RespoApp[Store] = {
-    store: Ref::new(@respo.try_load_storage(app_store_key)),
+    store: Ref(@respo.try_load_storage(app_store_key)),
     mount_target,
     storage_key: app_store_key,
   }
   app.backup_model_beforeunload()
   // @dom_ffi.log("store: " + app.store.val.to_json().stringify(indent=2))
-  app.render_loop(fn() { view(app.store.val) }, fn(op) {
-    @dom_ffi.log("Action: " + op.to_string())
+  app.render_loop(() => view(app.store.val), op => {
     app.store.val = app.store.val.update(op)
   })
   let dev_mode = @dom_ffi.new_url_search_params(window.location().search()).get(
